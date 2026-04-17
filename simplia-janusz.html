@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simplia IT &ndash; Twoja firma mogłaby działać sprawniej</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #E8521A;
+      --orange-light: #FF6B35;
+      --dark: #111111;
+      --dark2: #1A1A1A;
+      --dark3: #222222;
+      --gray: #888888;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(17,17,17,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--orange); }
+
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: #AAAAAA;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 60px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -150px; right: -150px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(232,82,26,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,82,26,0.1);
+      border: 1px solid rgba(232,82,26,0.3);
+      color: var(--orange);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 36px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 62px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 28px;
+      max-width: 860px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #AAAAAA;
+      max-width: 600px;
+      margin-bottom: 52px;
+      line-height: 1.7;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+    .btn-ghost {
+      color: #AAAAAA;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--white); }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 60px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      font-size: 18px;
+      color: #AAAAAA;
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* ─── PAIN ─── */
+    .pain { background: var(--dark2); }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .pain-card {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .pain-icon { font-size: 28px; margin-bottom: 16px; }
+    .pain-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .pain-card p { font-size: 14px; color: #888; line-height: 1.6; }
+
+    /* ─── SERVICES ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 36px 32px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .service-card:hover { border-color: rgba(232,82,26,0.4); transform: translateY(-4px); }
+
+    .service-number {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .service-icon { font-size: 36px; margin-bottom: 20px; }
+    .service-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.5px; }
+    .service-card p { font-size: 15px; color: #AAAAAA; line-height: 1.7; margin-bottom: 20px; }
+
+    .service-list { list-style: none; padding: 0; }
+    .service-list li {
+      font-size: 14px;
+      color: #BBBBBB;
+      padding: 6px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-list li::before { content: '✓'; color: var(--orange); font-weight: 700; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how { background: var(--dark2); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .step {
+      padding: 36px 28px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+    }
+    .step:last-child { border-right: none; }
+
+    .step-num {
+      width: 48px; height: 48px;
+      background: rgba(232,82,26,0.1);
+      border: 2px solid rgba(232,82,26,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 14px; color: #888; line-height: 1.6; }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 800; letter-spacing: -1px; margin-bottom: 24px; line-height: 1.2; }
+    .about-text p { font-size: 17px; color: #AAAAAA; line-height: 1.8; margin-bottom: 20px; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .stat-box {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-big { font-size: 40px; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .stat-desc { font-size: 13px; color: #888; line-height: 1.5; }
+
+    .certs {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cert-badge {
+      background: rgba(232,82,26,0.08);
+      border: 1px solid rgba(232,82,26,0.2);
+      color: #CCCCCC;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact { background: var(--dark2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
+    .contact-info p { font-size: 17px; color: #AAAAAA; line-height: 1.7; margin-bottom: 36px; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-item-icon {
+      width: 48px; height: 48px;
+      background: rgba(232,82,26,0.1);
+      border: 1px solid rgba(232,82,26,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text { font-size: 15px; color: #AAAAAA; }
+    .contact-item-text strong { display: block; color: var(--white); font-size: 16px; margin-bottom: 2px; }
+
+    /* ─── FORM ─── */
+    form {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #AAAAAA;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: rgba(232,82,26,0.5); }
+    input::placeholder, textarea::placeholder { color: #555; }
+    textarea { resize: vertical; min-height: 120px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .submit-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    .form-note {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      margin-top: 14px;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .form-success h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+    .form-success p { font-size: 15px; color: #AAAAAA; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0A0A0A;
+      padding: 40px 60px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo { font-size: 18px; font-weight: 800; }
+    .footer-logo span { color: var(--orange); }
+
+    footer p { font-size: 13px; color: #555; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .hero { padding: 120px 24px 80px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .step:last-child { border-bottom: none; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="logo">Simplia<span>IT</span></a>
+  <div class="nav-links">
+    <a href="#problemy">Dla kogo</a>
+    <a href="#uslugi">Usługi</a>
+    <a href="#jak-dzialamy">Jak działamy</a>
+    <a href="#o-nas">O nas</a>
+    <a href="#kontakt" class="nav-cta">Bezpłatna rozmowa</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      &#128200; Dla właścicieli firm 10&ndash;100 pracowników
+    </div>
+    <h1>
+      Twoja firma mogłaby<br />
+      działać <em>sprawniej</em>.<br />
+      Pokażemy Ci jak.
+    </h1>
+    <p>
+      Pomagamy właścicielom małych firm produkcyjnych i usługowych ogarnąć procesy, dane i systemy.
+      Tak żeby czas i pieniądze przestały uciekać przez szczeliny &mdash; bez wielkich wydatków i bez bałaganu.
+    </p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn-primary">
+        &#128222; Umów bezpłatną rozmowę
+      </a>
+      <a href="#uslugi" class="btn-ghost">
+        Zobacz co robimy &#8595;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PAIN ─── -->
+<section class="pain" id="problemy">
+  <div class="section-inner">
+    <div class="section-label">Brzmi znajomo?</div>
+    <h2 class="section-title">Te problemy kosztują Cię czas i pieniądze</h2>
+    <p class="section-sub">
+      Nie trzeba być ekspertem od IT żeby wiedzieć, że coś można zrobić lepiej.
+      Ale skąd zacząć&nbsp;&mdash; i kogo poprosić o pomoc?
+    </p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">&#128203;</div>
+        <h3>Excel z 15 zakładkami</h3>
+        <p>Ktoś coś zmienia, ktoś inny nadpisuje, a na koniec dnia nikt nie wie która wersja jest aktualna. Każdy raport to godzina pracy zamiast minuty.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">&#128467;</div>
+        <h3>Ręczne przepisywanie danych</h3>
+        <p>Zamówienie przychodzi mailem, ktoś przepisuje do systemu, ktoś inny do magazynu. Błędy, pomyłki, czas stracony na coś co mogłoby działać samo.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">&#128200;</div>
+        <h3>Brak widoku na firmę</h3>
+        <p>Chcesz wiedzieć jak idzie ten miesiąc, ale żeby to sprawdzić musisz prosić trzy osoby o dane z trzech różnych miejsc. I czekasz do piątku.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">&#128336;</div>
+        <h3>Każdy robi po swojemu</h3>
+        <p>Pracownicy mają swoje sposoby na wszystko. Jeden notuje w Excelu, drugi w zeszycie, trzeci pamięta. Firma rośnie, a chaos rośnie razem z nią.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">&#128187;</div>
+        <h3>Systemy które nie rozmawiają</h3>
+        <p>Masz program do fakturowania, program do magazynu i jeszcze jeden do zamówień. Żaden nie wie co robi drugi. Łącznikiem jest człowiek.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">&#129300;</div>
+        <h3>Nie wiesz od czego zacząć</h3>
+        <p>Słyszałeś że można automatyzować, porządkować, digitalizować. Ale firmy IT albo mówią niezrozumiale, albo kosztują majątek. I dajesz sobie spokój.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="uslugi">
+  <div class="section-inner">
+    <div class="section-label">Co robimy</div>
+    <h2 class="section-title">Trzy usługi. Jeden cel: żebyś tracił mniej czasu.</h2>
+    <p class="section-sub">
+      Nie sprzedajemy skomplikowanych systemów. Rozwiązujemy konkretne problemy
+      i zostajemy z Tobą tak długo, jak potrzebujesz.
+    </p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-icon">&#128269;</div>
+        <h3>Audyt i plan działania</h3>
+        <p>Przychodzimy, rozmawiamy z Twoim zespołem i dokładnie mapujemy gdzie tracisz czas i pieniądze. Na końcu dostajesz konkretny plan &mdash; co zrobić i w jakiej kolejności.</p>
+        <ul class="service-list">
+          <li>Analiza procesów w Twojej firmie</li>
+          <li>Wskazanie 3 największych bolączek</li>
+          <li>Konkretny plan naprawy z priorytetami</li>
+          <li>Bez żargonu, bez skomplikowanych raportów</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-icon">&#128202;</div>
+        <h3>Raporty i dashboardy</h3>
+        <p>Zamiast Excela z 15 zakładkami &mdash; jedno czytelne zestawienie, które mówi Ci co dzieje się w firmie. Na bieżąco, bez pytania nikogo o dane.</p>
+        <ul class="service-list">
+          <li>Dashboard dopasowany do Twojej branży</li>
+          <li>Dane z różnych systemów w jednym miejscu</li>
+          <li>Widok na firmę w 30 sekund dziennie</li>
+          <li>Szkolenie dla Twojego zespołu</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-icon">&#9881;</div>
+        <h3>Wdrożenie krok po kroku</h3>
+        <p>Jeśli chcesz, zostajemy i pomagamy wdrożyć zmiany. Bez chaosu, bez przestojów w firmie. Wdrażamy małymi krokami &mdash; tak żeby zespół za nami nadążał.</p>
+        <ul class="service-list">
+          <li>Porządkowanie procesów i procedur</li>
+          <li>Połączenie systemów które nie rozmawiają</li>
+          <li>Automatyzacja powtarzalnych zadań</li>
+          <li>Opieka po wdrożeniu &mdash; jesteśmy pod telefonem</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how" id="jak-dzialamy">
+  <div class="section-inner">
+    <div class="section-label">Jak działamy</div>
+    <h2 class="section-title">Cztery proste kroki</h2>
+    <p class="section-sub">
+      Żadnej biurokracji, żadnych przetargów. Pierwsza rozmowa jest bezpłatna
+      i do niczego Cię nie zobowiązuje.
+    </p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Rozmowa &mdash; za darmo</h3>
+        <p>30 minut przez telefon lub Teams. Pytamy co u Ciebie boli. Mówisz jak jest. Zero sprzedaży, zero presji.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Diagnoza</h3>
+        <p>Odwiedzamy firmę albo spotykamy się online. Przyglądamy się jak pracujesz na co dzień. Szukamy miejsc, gdzie tracisz czas.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Propozycja bez żargonu</h3>
+        <p>Dostajesz konkretną ofertę: co zrobimy, ile to zajmie, ile kosztuje. W języku polskim, nie IT.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Działamy razem</h3>
+        <p>Wdrażamy zmiany małymi krokami. Jesteśmy w kontakcie. Zostawiamy Cię z firmą, która działa sprawniej &mdash; nie z kolejnym problemem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="o-nas">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Kim jesteśmy</div>
+        <h2>Nie jesteśmy korporacją. To jest nasza przewaga.</h2>
+        <p>
+          Simplia IT to doświadczony specjalista IT z ponad 12-letnim stażem w dużych firmach produkcyjnych.
+          Przez lata widziałem od środka jak wyglądają procesy, systemy i bałagan operacyjny w firmach różnej wielkości.
+        </p>
+        <p>
+          Postanowiłem pomagać mniejszym firmom &mdash; tym, które chcą działać sprawniej, ale nie chcą płacić
+          fortuny za konsultantów z wielkiej korporacji. Wiemy jak wygląda chaos operacyjny od środka.
+          I wiemy jak go naprawić.
+        </p>
+        <p>
+          Rozmawiamy z Tobą jak człowiek z człowiekiem &mdash; bez PowerPointów, bez skomplikowanych prezentacji.
+          Tylko konkretna robota i konkretny efekt.
+        </p>
+        <div class="certs">
+          <span class="cert-badge">TOGAF 9 Certified</span>
+          <span class="cert-badge">Microsoft Azure</span>
+          <span class="cert-badge">ITIL v4</span>
+          <span class="cert-badge">12+ lat w produkcji</span>
+          <span class="cert-badge">IT Business Management AGH</span>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-big">12+</div>
+          <div class="stat-desc">lat doświadczenia w IT dla firm produkcyjnych</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-big">100%</div>
+          <div class="stat-desc">skupienia na małych i średnich firmach</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-big">0 zł</div>
+          <div class="stat-desc">koszt pierwszej rozmowy &mdash; bez zobowiązań</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-big">&#x1F4AC;</div>
+          <div class="stat-desc">zawsze po polsku &mdash; bez IT-żargonu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact" id="kontakt">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Kontakt</div>
+        <h2>Nie wiesz czy potrzebujesz pomocy? Zadzwoń i sprawdź.</h2>
+        <p>
+          Pierwsza rozmowa jest bezpłatna i do niczego Cię nie zobowiązuje.
+          Opowiedz jak wygląda Twoja firma &mdash; razem zobaczymy czy możemy pomóc.
+          Dużo firm nie wiedziało od czego zacząć. Po jednej rozmowie wiedziało.
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">&#128222;</div>
+            <div class="contact-item-text">
+              <strong>Telefon</strong>
+              Zadzwoń lub napisz SMS &mdash; oddzwonimy
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">&#9993;</div>
+            <div class="contact-item-text">
+              <strong>kontakt@simplia.it</strong>
+              Odpowiadamy w ciągu 24 godzin
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">&#127758;</div>
+            <div class="contact-item-text">
+              <strong>Małopolska i cała Polska</strong>
+              Spotkania online lub u Ciebie w firmie
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Imię i nazwisko</label>
+              <input type="text" id="name" name="name" placeholder="Jan Kowalski" required />
+            </div>
+            <div class="form-group">
+              <label for="company">Firma</label>
+              <input type="text" id="company" name="company" placeholder="Nazwa firmy" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="123 456 789" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jan@firma.pl" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">W czym możemy pomóc? <span style="color:#555;font-weight:400">(opcjonalnie)</span></label>
+            <textarea id="message" name="message" placeholder="Opisz krótko co Cię boli w firmie albo co chciałbyś zmienić. Możesz napisać dosłownie jedno zdanie."></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            &#128222; Wyślij &mdash; odezwiemy się w ciągu 24h
+          </button>
+          <p class="form-note">Nie sprzedajemy danych. Nie wysyłamy spamu. Obiecujemy.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">&#10003;</div>
+          <h3>Wiadomość wysłana!</h3>
+          <p>Odezwiemy się w ciągu 24 godzin roboczych. Dziękujemy za kontakt.</p>
+        </div>
+
+        <div class="form-success" id="formError" style="display:none;">
+          <div class="success-icon">&#9888;</div>
+          <h3 style="color:#E8521A;">Coś poszło nie tak</h3>
+          <p>Proszę napisać bezpośrednio na <a href="mailto:tatarekconsulting@gmail.com" style="color:#E8521A;">tatarekconsulting@gmail.com</a> lub zadzwonić.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">Simplia<span>IT</span></div>
+  <p>&copy; 2025 Simplia IT &bull; NIP: [UZUPEŁNIJ] &bull; kontakt@simplia.it</p>
+  <p style="font-size:12px;color:#444;">Pomagamy małym firmom działać sprawniej.</p>
+</footer>
+
+<script>
+  // ─── FORMSPREE – wysyłka maila https://formspree.io ───
+  var FORMSPREE_ID = 'xzdyebpz'; 
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    var btn = document.getElementById('submitBtn');
+    var form = document.getElementById('contactForm');
+
+    // Pokaż loader na przycisku
+    btn.disabled = true;
+    btn.textContent = 'Wysyłanie...';
+
+    var data = {
+      name:    document.getElementById('name').value,
+      company: document.getElementById('company').value,
+      phone:   document.getElementById('phone').value,
+      email:   document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      var response = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        // Formspree zwróciło błąd (np. ID niezarejestrowane)
+        throw new Error('formspree error');
+      }
+    } catch (err) {
+      // Fallback: otwórz klienta pocztowego z wypełnioną wiadomością
+      var subject = encodeURIComponent('Zapytanie ze strony Simplia IT – ' + data.name);
+      var body    = encodeURIComponent(
+        'Imię i nazwisko: ' + data.name + '\n' +
+        'Firma: ' + data.company + '\n' +
+        'Telefon: ' + data.phone + '\n' +
+        'Email odpowiedzi: ' + data.email + '\n\n' +
+        'Wiadomość:\n' + data.message
+      );
+      window.location.href = 'mailto:tatarekconsulting@gmail.com?subject=' + subject + '&body=' + body;
+
+      // Pokaż informację o błędzie (na wypadek gdy mailto też nie zadziałało)
+      setTimeout(function() {
+        form.style.display = 'none';
+        document.getElementById('formError').style.display = 'block';
+      }, 1500);
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '&#128222; Wyślij &mdash; odezwiemy się w ciągu 24h';
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
